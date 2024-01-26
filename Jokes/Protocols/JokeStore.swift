@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol JokeStore {
-    func getJoke(url: URL) -> AnyPublisher<Joke, Error>
+    func getJoke(_ endpoint: Endpoint) -> AnyPublisher<Joke, NetworkError>
 }

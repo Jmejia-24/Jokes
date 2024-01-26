@@ -7,6 +7,6 @@
 
 import Foundation
 
-@frozen enum Endpoint {
-    static let chuckNorrisJoke = URL(string: "https://api.chucknorris.io/jokes/random")
+@frozen enum Endpoint: String {
+    case random = "random"
 }

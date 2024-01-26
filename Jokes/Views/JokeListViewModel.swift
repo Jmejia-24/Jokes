@@ -18,12 +18,15 @@ final class JokeListViewModel: ObservableObject {
     }
 
     func fetchJokes() {
-        guard let jokeURL = Endpoint.chuckNorrisJoke else { return }
         state = .loading
 
-        let jokesRequest = Publishers.Sequence(sequence: Array(repeating: jokeURL, count: 10))
-            .flatMap(maxPublishers: .max(10)) { url -> AnyPublisher<Joke, Error> in
-                self.store.getJoke(url: url)
+        let jokesRequest = Publishers.Sequence(sequence: Array(repeating: Endpoint.random, count: 10))
+            .flatMap(maxPublishers: .max(10)) { [weak self] random -> AnyPublisher<Joke, NetworkError> in
+                guard let self = self else {
+                    return Fail(error: .selfIsNil).eraseToAnyPublisher()
+                }
+
+                return self.store.getJoke(random)
             }
             .collect()
 
@@ -32,7 +35,7 @@ final class JokeListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    private func handleCompletion(_ completion: Subscribers.Completion<Error>) {
+    private func handleCompletion(_ completion: Subscribers.Completion<NetworkError>) {
         switch completion {
         case .finished:
             print("Finished fetching jokes.")
