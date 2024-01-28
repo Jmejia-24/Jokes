@@ -1,5 +1,5 @@
 //
-//  JokeListViewModel.swift
+//  JokeListInteractor.swift
 //  Jokes
 //
 //  Created by Byron on 25/1/24.
@@ -8,17 +8,34 @@
 import Foundation
 import Combine
 
-final class JokeListViewModel: ObservableObject {
-    private let store: JokeStore
-    private var cancellables = Set<AnyCancellable>()
-    @Published var state: ViewState<[Joke]> = .loading
+enum JokeListEvent {
+    case viewDidAppear
+    case didTapRefreshButton
+}
 
-    init(store: JokeStore = APIManager()) {
-        self.store = store
+final class JokeListInteractor {
+    
+    private let repository: JokeRepository
+    private var cancellables = Set<AnyCancellable>()
+
+    private (set) var state: JokeListViewState
+    
+    init(repository: JokeRepository = APIManager(), state: JokeListViewState = JokeListViewState()) {
+        self.repository = repository
+        self.state = state
     }
 
-    func fetchJokes() {
-        state = .loading
+    // MARK: EVENT HANDLER
+    func onEvent(event: JokeListEvent) {
+        switch (event) {
+        case .viewDidAppear: fetchJokes()
+        case .didTapRefreshButton: fetchJokes()
+        }
+    }
+    
+    // MARK: Private Methods
+    private func fetchJokes() {
+        state.viewState = .loading
 
         let jokesRequest = Publishers.Sequence(sequence: Array(repeating: Endpoint.random, count: 10))
             .flatMap(maxPublishers: .max(10)) { [weak self] random -> AnyPublisher<Joke, NetworkError> in
@@ -26,7 +43,7 @@ final class JokeListViewModel: ObservableObject {
                     return Fail(error: .selfIsNil).eraseToAnyPublisher()
                 }
 
-                return self.store.getJoke(random)
+                return self.repository.getJoke(random)
             }
             .collect()
 
@@ -40,11 +57,12 @@ final class JokeListViewModel: ObservableObject {
         case .finished:
             print("Finished fetching jokes.")
         case .failure(let error):
-            state = .error(error.localizedDescription)
+            state.viewState = .error(error.localizedDescription)
         }
     }
 
     private func handleReceivedJokes(_ response: [Joke]) {
-        state = .success(response)
+        state.jokeList = response
+        state.viewState = .success
     }
 }

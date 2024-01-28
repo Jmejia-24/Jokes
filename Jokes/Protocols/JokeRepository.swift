@@ -8,6 +8,6 @@
 import Foundation
 import Combine
 
-protocol JokeStore {
+protocol JokeRepository {
     func getJoke(_ endpoint: Endpoint) -> AnyPublisher<Joke, NetworkError>
 }

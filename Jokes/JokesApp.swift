@@ -11,7 +11,12 @@ import SwiftUI
 struct JokesApp: App {
     var body: some Scene {
         WindowGroup {
-            JokeListView()
+            
+            let interactor = JokeListInteractor()
+            JokeListView(
+                state: interactor.state,
+                onEvent: interactor.onEvent(event:)
+            )
         }
     }
 }
