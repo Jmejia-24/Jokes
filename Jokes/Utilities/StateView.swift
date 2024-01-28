@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-enum ViewState<Value> {
+enum ViewState {
     case loading
-    case success(Value)
+    case success
     case error(String)
 }
 
-struct StateView<Value, Content>: View where Content: View {
-    var state: ViewState<Value>
-    let content: (Value) -> Content
+struct StateView<Content>: View where Content: View {
+    var state: ViewState
+    let content: () -> Content
     let retryAction: () -> Void
 
     var body: some View {
@@ -27,8 +27,8 @@ struct StateView<Value, Content>: View where Content: View {
                     .tint(.blue)
                     .scaleEffect(2)
             )
-        case .success(let value):
-            return AnyView(content(value))
+        case .success:
+            return AnyView(content())
         case .error(let message):
             return AnyView(
                 ErrorView(errorMessage: message) {

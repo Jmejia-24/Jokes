@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		833771042B65CC3400BC1311 /* JokeListViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833771032B65CC3400BC1311 /* JokeListViewState.swift */; };
 		9151B8282B62327E00243D58 /* JokesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B8272B62327E00243D58 /* JokesApp.swift */; };
 		9151B82A2B62327E00243D58 /* JokeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B8292B62327E00243D58 /* JokeListView.swift */; };
 		9151B82C2B62327F00243D58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9151B82B2B62327F00243D58 /* Assets.xcassets */; };
 		9151B82F2B62327F00243D58 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9151B82E2B62327F00243D58 /* Preview Assets.xcassets */; };
 		9151B8372B6232A700243D58 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B8362B6232A700243D58 /* APIManager.swift */; };
 		9151B83A2B6238A000243D58 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B8392B6238A000243D58 /* Endpoint.swift */; };
-		9151B83D2B623AC500243D58 /* JokeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B83C2B623AC500243D58 /* JokeListViewModel.swift */; };
-		91E00F5A2B62D12A009B6365 /* JokeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E00F592B62D12A009B6365 /* JokeStore.swift */; };
+		9151B83D2B623AC500243D58 /* JokeListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B83C2B623AC500243D58 /* JokeListInteractor.swift */; };
+		91E00F5A2B62D12A009B6365 /* JokeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E00F592B62D12A009B6365 /* JokeRepository.swift */; };
 		91E00F5D2B62D16C009B6365 /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E00F5C2B62D16C009B6365 /* Joke.swift */; };
 		91E00F602B62D4D6009B6365 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E00F5F2B62D4D6009B6365 /* ErrorView.swift */; };
 		91E00F622B62D8A4009B6365 /* StateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E00F612B62D8A4009B6365 /* StateView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		833771032B65CC3400BC1311 /* JokeListViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeListViewState.swift; sourceTree = "<group>"; };
 		9151B8242B62327E00243D58 /* Jokes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jokes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9151B8272B62327E00243D58 /* JokesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokesApp.swift; sourceTree = "<group>"; };
 		9151B8292B62327E00243D58 /* JokeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeListView.swift; sourceTree = "<group>"; };
@@ -30,8 +32,8 @@
 		9151B82E2B62327F00243D58 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9151B8362B6232A700243D58 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		9151B8392B6238A000243D58 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		9151B83C2B623AC500243D58 /* JokeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeListViewModel.swift; sourceTree = "<group>"; };
-		91E00F592B62D12A009B6365 /* JokeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeStore.swift; sourceTree = "<group>"; };
+		9151B83C2B623AC500243D58 /* JokeListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeListInteractor.swift; sourceTree = "<group>"; };
+		91E00F592B62D12A009B6365 /* JokeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeRepository.swift; sourceTree = "<group>"; };
 		91E00F5C2B62D16C009B6365 /* Joke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
 		91E00F5F2B62D4D6009B6365 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		91E00F612B62D8A4009B6365 /* StateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateView.swift; sourceTree = "<group>"; };
@@ -50,6 +52,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		833771082B65DD6B00BC1311 /* JokeList */ = {
+			isa = PBXGroup;
+			children = (
+				9151B8292B62327E00243D58 /* JokeListView.swift */,
+				9151B83C2B623AC500243D58 /* JokeListInteractor.swift */,
+				833771032B65CC3400BC1311 /* JokeListViewState.swift */,
+			);
+			name = JokeList;
+			sourceTree = "<group>";
+		};
 		9151B81B2B62327E00243D58 = {
 			isa = PBXGroup;
 			children = (
@@ -110,8 +122,7 @@
 		9151B83B2B623A9900243D58 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9151B8292B62327E00243D58 /* JokeListView.swift */,
-				9151B83C2B623AC500243D58 /* JokeListViewModel.swift */,
+				833771082B65DD6B00BC1311 /* JokeList */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,7 +130,7 @@
 		91E00F582B62D117009B6365 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				91E00F592B62D12A009B6365 /* JokeStore.swift */,
+				91E00F592B62D12A009B6365 /* JokeRepository.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -221,16 +232,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9151B8372B6232A700243D58 /* APIManager.swift in Sources */,
-				9151B83D2B623AC500243D58 /* JokeListViewModel.swift in Sources */,
+				9151B83D2B623AC500243D58 /* JokeListInteractor.swift in Sources */,
 				9151B82A2B62327E00243D58 /* JokeListView.swift in Sources */,
 				9151B83A2B6238A000243D58 /* Endpoint.swift in Sources */,
 				91E00F652B62EC60009B6365 /* Publisher.swift in Sources */,
-				91E00F5A2B62D12A009B6365 /* JokeStore.swift in Sources */,
+				91E00F5A2B62D12A009B6365 /* JokeRepository.swift in Sources */,
 				9151B8282B62327E00243D58 /* JokesApp.swift in Sources */,
 				91E00F622B62D8A4009B6365 /* StateView.swift in Sources */,
 				91E00F5D2B62D16C009B6365 /* Joke.swift in Sources */,
 				91E00F672B633624009B6365 /* NetworkError.swift in Sources */,
 				91E00F602B62D4D6009B6365 /* ErrorView.swift in Sources */,
+				833771042B65CC3400BC1311 /* JokeListViewState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +383,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -399,6 +412,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

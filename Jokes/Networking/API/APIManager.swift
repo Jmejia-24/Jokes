@@ -57,7 +57,7 @@ final class APIManager {
     }
 }
 
-extension APIManager: JokeStore {
+extension APIManager: JokeRepository {
     func getJoke(_ endpoint: Endpoint) -> AnyPublisher<Joke, NetworkError> {
         let stringURL = baseURL+endpoint.rawValue
         return request(for: stringURL)

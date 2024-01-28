@@ -8,13 +8,43 @@
 import SwiftUI
 
 struct JokeListView: View {
-    @ObservedObject var viewModel = JokeListViewModel()
 
+    /* 
+     This view doesn't know any implementation, it simply listens to
+     state and recomposes itself when the state's properties change,
+     it doesn't know specific methods, it simply reports events that
+     occur for someone else to handle.
+     
+     This approach provides us with the advantage of having information flowing in a
+     unidirectional stream.
+     (view event occurs) -> (Interactor do something) -> (view state is updated) -> (the view is recomposed)
+     */
+    
+    @ObservedObject var state: JokeListViewState
+    let onEvent: (JokeListEvent) -> Void
+    
+    @ViewBuilder
+    private func jokeItemCell(joke: Joke) -> some View {
+        HStack(alignment: .center,spacing: 8) {
+            
+            Image("notFound")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 60)
+            
+            Text(joke.value)
+                .font(.system(size: 15))
+                .lineLimit(4)
+                .truncationMode(.tail)
+        }
+    }
+    
     var body: some View {
-        StateView(state: viewModel.state) { jokes in
+        
+        StateView(state: state.viewState) {
             NavigationView {
-                List(jokes) { joke in
-                    Text(joke.value)
+                List(state.jokeList) { joke in
+                    jokeItemCell(joke: joke)
                 }
                 .listStyle(.plain)
                 .navigationBarTitleDisplayMode(.inline)
@@ -26,15 +56,17 @@ struct JokeListView: View {
                 }
             }
         } retryAction: {
-            viewModel.fetchJokes()
+            onEvent(.didTapRefreshButton)
         }
         .onAppear {
-            viewModel.fetchJokes()
+            onEvent(.viewDidAppear)
         }
     }
 
     private var refreshButton: some View {
-        Button(action: viewModel.fetchJokes) {
+        Button(action: {
+            onEvent(.didTapRefreshButton)
+        }) {
             Image(systemName: "arrow.clockwise")
                 .accessibilityLabel("Refresh Jokes")
         }
@@ -42,5 +74,9 @@ struct JokeListView: View {
 }
 
 #Preview {
-    JokeListView()
+    let interactor = JokeListInteractor()
+    return JokeListView(
+        state: interactor.state,
+        onEvent: interactor.onEvent(event:)
+    )
 }
